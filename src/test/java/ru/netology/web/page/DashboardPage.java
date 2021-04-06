@@ -25,26 +25,33 @@ public class DashboardPage extends AkitaPage {
         heading.shouldBe(visible);
     }
 
-    public TransferPage topUpCard1() {
-        actionCard1.click();
-        return Selenide.page(TransferPage.class);
+    public TransferPage topUpCard(String card) {
+        if (card.equals("5559 0000 0000 0001")) {
+            actionCard1.click();
+        }
+        else if (card.equals("5559 0000 0000 0002")) {
+            actionCard2.click();
+        }
+        return new TransferPage();
     }
 
-    public TransferPage topUpCard2() {
-        actionCard2.click();
-        return Selenide.page(TransferPage.class);
-    }
-
-    public int getCardBalance(String id) {
+    public String getCardBalance(String card) {
+        String id = new String();
+        if (card.equals("5559 0000 0000 0001")) {
+            id = "0f3f5c2a-249e-4c3d-8287-09f7a039391d";
+        }
+        else if (card.equals("5559 0000 0000 0002")) {
+            id = "0f3f5c2a-249e-4c3d-8287-09f7a039391d";
+        }
         var text = $("[data-test-id='" + id + "']").text();
         return extractBalance(text);
     }
 
-    private int extractBalance(String text) {
+    private String extractBalance(String text) {
         val start = text.indexOf(balanceStart);
         val finish = text.indexOf(balanceFinish);
         val value = text.substring(start + balanceStart.length(), finish);
-        return Integer.parseInt(value);
+        return value;
     }
 
 }

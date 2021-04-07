@@ -1,6 +1,5 @@
 package ru.netology.web.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,10 +15,6 @@ public class VerificationPage extends AkitaPage {
     @Name("Продолжить")
     @FindBy(css = "[data-test-id=action-verify]")
     private SelenideElement verifyButton;
-
-    public VerificationPage() {
-        codeField.shouldBe(Condition.visible);
-    }
 
     public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
         codeField.setValue(verificationCode.getCode());

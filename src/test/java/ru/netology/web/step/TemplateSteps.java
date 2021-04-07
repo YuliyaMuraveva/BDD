@@ -19,7 +19,7 @@ import static ru.alfabank.tests.core.helpers.PropertyLoader.loadProperty;
 public class TemplateSteps {
     private final AkitaScenario scenario = AkitaScenario.getInstance();
 
-    @Пусть("^пользователь залогинен с именем \"([^\"])\" и паролем \"([^\"])\"$")
+    @Пусть("^пользователь залогинен с именем \"([^\"].*)\" и паролем \"([^\"].*)\"$")
     public void loginWithNameAndPassword(String login, String password) {
         val loginUrl = loadProperty("loginUrl");
         open(loginUrl);
@@ -34,7 +34,7 @@ public class TemplateSteps {
         scenario.getCurrentPage().appeared();
     }
 
-    @Когда("^он переводит \"([^\"])\" рублей с карты с номером \"([^\"])\" на свою \"([^\"])\" карту с главной страницы")
+    @Когда("^он переводит \"([^\"].*)\" рублей с карты с номером \"([^\"].*)\" на свою \"([^\"].*)\" карту с главной страницы")
     public void transfer(String sum, String fromCard, String toCard) {
         val dashboardPage = (DashboardPage) scenario.getCurrentPage().appeared();
         scenario.setCurrentPage(dashboardPage.topUpCard(toCard));
@@ -43,7 +43,7 @@ public class TemplateSteps {
         scenario.getCurrentPage().appeared();
     }
 
-    @Тогда("^баланс его \"([^\"])\" карты из списка на главной странице должен стать \"([^\"])\" рублей")
+    @Тогда("^баланс его \"([^\"].*)\" карты из списка на главной странице должен стать \"([^\"].*)\" рублей")
     public void checkBalance(String card, String expectedBalance) {
         val dashboardPage = (DashboardPage) scenario.getCurrentPage().appeared();
         String actualBalance = dashboardPage.getCardBalance(card);

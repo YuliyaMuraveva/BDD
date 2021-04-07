@@ -7,13 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import ru.alfabank.alfatest.cucumber.annotations.Name;
 import ru.alfabank.alfatest.cucumber.api.AkitaPage;
 
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
 @Name("Дашбоард")
 public class DashboardPage extends AkitaPage {
-    @FindBy(css = "[data-test-id=dashboard]")
-    private SelenideElement heading;
     @FindBy(css = "[data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0'] button")
     private SelenideElement actionCard1;
     @FindBy(css = "[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d'] button")
@@ -21,26 +18,22 @@ public class DashboardPage extends AkitaPage {
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
 
-    public DashboardPage() {
-        heading.shouldBe(visible);
-    }
-
     public TransferPage topUpCard(String card) {
-        if (card.equals("5559 0000 0000 0001")) {
+        if (card.equals("1")) {
             actionCard1.click();
         }
-        else if (card.equals("5559 0000 0000 0002")) {
+        else if (card.equals("2")) {
             actionCard2.click();
         }
-        return new TransferPage();
+        return Selenide.page(TransferPage.class);
     }
 
     public String getCardBalance(String card) {
         String id = new String();
-        if (card.equals("5559 0000 0000 0001")) {
-            id = "0f3f5c2a-249e-4c3d-8287-09f7a039391d";
+        if (card.equals("1")) {
+            id = "92df3f1c-a033-48e6-8390-206f6b1f56c0";
         }
-        else if (card.equals("5559 0000 0000 0002")) {
+        else if (card.equals("2")) {
             id = "0f3f5c2a-249e-4c3d-8287-09f7a039391d";
         }
         var text = $("[data-test-id='" + id + "']").text();
